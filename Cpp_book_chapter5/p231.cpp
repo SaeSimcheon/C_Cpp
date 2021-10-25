@@ -8,7 +8,7 @@ int k = 2;};
 int main(){
     int n =2 ;
     int &refn = n;
-    int &refnn = refn;
+    int &refnn = refn;// 참조 변수에 대한 참조를 수행하는 경우, 원본 변수에 대한 또다른 참조 변수가 생성됨.
     cout << " refn " << refn << endl;
     refn = 3;
     int *p = &refn;
