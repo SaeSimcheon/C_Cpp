@@ -1,0 +1,121 @@
+   1              		.file	"cht1.cpp"
+   2              		.text
+   3              		.section	.rodata
+   6              	_ZStL19piecewise_construct:
+   7 0000 00       		.zero	1
+   8              		.local	_ZStL8__ioinit
+   9              		.comm	_ZStL8__ioinit,1,1
+  10              	.LC0:
+  11 0001 68656C6C 		.string	"hello"
+  11      6F00
+  12              		.text
+  13              		.globl	main
+  15              	main:
+  16              	.LFB1522:
+  17              		.cfi_startproc
+  18 0000 F30F1EFA 		endbr64
+  19 0004 55       		pushq	%rbp
+  20              		.cfi_def_cfa_offset 16
+  21              		.cfi_offset 6, -16
+  22 0005 4889E5   		movq	%rsp, %rbp
+  23              		.cfi_def_cfa_register 6
+  24 0008 488D3500 		leaq	.LC0(%rip), %rsi
+  24      000000
+  25 000f 488D3D00 		leaq	_ZSt4cout(%rip), %rdi
+  25      000000
+  26 0016 E8000000 		call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc@PLT
+  26      00
+  27 001b 4889C2   		movq	%rax, %rdx
+  28 001e 488B0500 		movq	_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_@GOTPCREL(%rip), %rax
+  28      000000
+  29 0025 4889C6   		movq	%rax, %rsi
+  30 0028 4889D7   		movq	%rdx, %rdi
+  31 002b E8000000 		call	_ZNSolsEPFRSoS_E@PLT
+  31      00
+  32 0030 B8000000 		movl	$0, %eax
+  32      00
+  33 0035 5D       		popq	%rbp
+  34              		.cfi_def_cfa 7, 8
+  35 0036 C3       		ret
+  36              		.cfi_endproc
+  37              	.LFE1522:
+  40              	_Z41__static_initialization_and_destruction_0ii:
+  41              	.LFB2011:
+  42              		.cfi_startproc
+  43 0037 F30F1EFA 		endbr64
+  44 003b 55       		pushq	%rbp
+  45              		.cfi_def_cfa_offset 16
+  46              		.cfi_offset 6, -16
+  47 003c 4889E5   		movq	%rsp, %rbp
+  48              		.cfi_def_cfa_register 6
+  49 003f 4883EC10 		subq	$16, %rsp
+  50 0043 897DFC   		movl	%edi, -4(%rbp)
+  51 0046 8975F8   		movl	%esi, -8(%rbp)
+  52 0049 837DFC01 		cmpl	$1, -4(%rbp)
+  53 004d 7532     		jne	.L5
+  54 004f 817DF8FF 		cmpl	$65535, -8(%rbp)
+  54      FF0000
+  55 0056 7529     		jne	.L5
+  56 0058 488D3D00 		leaq	_ZStL8__ioinit(%rip), %rdi
+  56      000000
+  57 005f E8000000 		call	_ZNSt8ios_base4InitC1Ev@PLT
+  57      00
+  58 0064 488D1500 		leaq	__dso_handle(%rip), %rdx
+  58      000000
+  59 006b 488D3500 		leaq	_ZStL8__ioinit(%rip), %rsi
+  59      000000
+  60 0072 488B0500 		movq	_ZNSt8ios_base4InitD1Ev@GOTPCREL(%rip), %rax
+  60      000000
+  61 0079 4889C7   		movq	%rax, %rdi
+  62 007c E8000000 		call	__cxa_atexit@PLT
+  62      00
+  63              	.L5:
+  64 0081 90       		nop
+  65 0082 C9       		leave
+  66              		.cfi_def_cfa 7, 8
+  67 0083 C3       		ret
+  68              		.cfi_endproc
+  69              	.LFE2011:
+  72              	_GLOBAL__sub_I_main:
+  73              	.LFB2012:
+  74              		.cfi_startproc
+  75 0084 F30F1EFA 		endbr64
+  76 0088 55       		pushq	%rbp
+  77              		.cfi_def_cfa_offset 16
+  78              		.cfi_offset 6, -16
+  79 0089 4889E5   		movq	%rsp, %rbp
+  80              		.cfi_def_cfa_register 6
+  81 008c BEFFFF00 		movl	$65535, %esi
+  81      00
+  82 0091 BF010000 		movl	$1, %edi
+  82      00
+  83 0096 E89CFFFF 		call	_Z41__static_initialization_and_destruction_0ii
+  83      FF
+  84 009b 5D       		popq	%rbp
+  85              		.cfi_def_cfa 7, 8
+  86 009c C3       		ret
+  87              		.cfi_endproc
+  88              	.LFE2012:
+  90              		.section	.init_array,"aw"
+  91              		.align 8
+  92 0000 00000000 		.quad	_GLOBAL__sub_I_main
+  92      00000000 
+  93              		.hidden	__dso_handle
+  94              		.ident	"GCC: (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0"
+  95              		.section	.note.GNU-stack,"",@progbits
+  96              		.section	.note.gnu.property,"a"
+  97              		.align 8
+  98 0000 04000000 		.long	 1f - 0f
+  99 0004 10000000 		.long	 4f - 1f
+ 100 0008 05000000 		.long	 5
+ 101              	0:
+ 102 000c 474E5500 		.string	 "GNU"
+ 103              	1:
+ 104              		.align 8
+ 105 0010 020000C0 		.long	 0xc0000002
+ 106 0014 04000000 		.long	 3f - 2f
+ 107              	2:
+ 108 0018 03000000 		.long	 0x3
+ 109              	3:
+ 110 001c 00000000 		.align 8
+ 111              	4:
