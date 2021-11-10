@@ -1,37 +1,51 @@
+
+//https://www.acmicpc.net/source/11405777
+//https://github.com/kjyoa09/Cpp/blob/main/BOJ/Silver/1260%20DFS%EC%99%80%20BFS.cpp
 #include <iostream>
 #include <vector>
 #include <numeric>
 #include <list>
+
 using namespace std;
 
-void dfs(vector<vector<int>> & mat,const int & node,const int & start){
+void dfs(const vector<vector<int>> & mat,const int & node,const int & start,vector<int> &ch ){
     if (node == start){// 최초의 노드 출력
-        cout << start +1<< " ";
+    cout << node+1<<' ';
+        ch[node]=1;
     }
-    if (accumulate(mat[node].begin(),mat[node].end(),0)==0){
-        return ; // 종료 조건은 도착한 node의 앞으로 방문할 수 있는 노드의 수 합이 1이 됨.
-    }else{
-        for (int i=0 ; i < mat[node].size(); i++){
+    
+    int cnt =0;
+    for (int i=0 ; i < mat[node].size();i++){
+        if (mat[node][i]==1){
+            if (ch[i]==1)
+                cnt +=1;
+        }
+        }
+    int comp =accumulate(mat[node].begin(),mat[node].end(),0);
 
-            if (mat[node][i] == 1){
-                for (int j = i ; j <mat[node].size();j++){
-                    mat[node][j] =0;
-                    mat[j][node] =0;
-                }// 방문한 노드에 관한 간선은 모두 없앰
-                cout <<i +1 << " ";// 다음 dfs를 호출하기 전에 출력
-                dfs(mat,i,start);
+    if (comp== cnt)
+        return;
 
+    for (int i=0;i<mat[node].size();i++){
+        if (mat[node][i]==1){
+            if(ch[i]==0){
+            ch[i]=1;
+            cout << i+1<<' ';
+            dfs(mat,i,start,ch);
             }
         }
         
-       
+
     }
+    
 }
 
 
 int main(){
+    //freopen("input.txt", "rt", stdin);
     int N,M,V;
     cin >> N >> M >> V ;
+    vector<int> dfs_ch(N,0);
     vector<vector<int>> vec(N,vector<int>(N,0));
     vector<vector<int>> vec1(N,vector<int>(N,0));
     for (int i =0 ; i < M ; i++){
@@ -42,7 +56,7 @@ int main(){
         vec1[o1-1][o2-1] =1;
         vec1[o2-1][o1-1] =1;
     }
-    dfs(vec,V-1,V-1);
+    dfs(vec,V-1,V-1,dfs_ch);
     cout <<endl;
     
     list<int> heap ;
