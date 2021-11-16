@@ -57,8 +57,8 @@ int main(){
     
     tree(adj,mm,M-1,-1,N);
     subtree(size,mm,M-1,N);
-
     for (auto i : sub){
+        
         cout << size[i-1] << '\n';
     }
     

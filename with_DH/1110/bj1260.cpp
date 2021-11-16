@@ -13,7 +13,7 @@ void dfs(const vector<vector<int>> & mat,const int & node,const int & start,vect
     cout << node+1<<' ';
         ch[node]=1;
     }
-    
+    //최초에 ch의 첫번째를 찍어주고 시작함
     int cnt =0;
     for (int i=0 ; i < mat[node].size();i++){
         if (mat[node][i]==1){
@@ -22,7 +22,8 @@ void dfs(const vector<vector<int>> & mat,const int & node,const int & start,vect
         }
         }
     int comp =accumulate(mat[node].begin(),mat[node].end(),0);
-
+    // matrix로 생각했고, 해당 row의 1 즉, 인접한 노드들 모두가 ch 1값 다시 말해서 이미 방문한 적이 있으면
+    //cnt+=1하여 row의 합 즉, 1의 개수와 동일하면 이탈함.
     if (comp== cnt)
         return;
 
@@ -35,7 +36,6 @@ void dfs(const vector<vector<int>> & mat,const int & node,const int & start,vect
             }
         }
         
-
     }
     
 }
