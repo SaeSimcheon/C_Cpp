@@ -5,6 +5,11 @@
 #include <cstdlib>
 using namespace std;
 
+// tree가 특정 노드에서 부모 노드와 자른 연결을 자른 경우에 
+// subtree를 이루고 그 개수를 파악하는 것이
+// 인접노드 정보를 통한 tree 구성에서 쉽게 계산 될 수 있는 점을 이용하여
+// 인접 노드 -> 트리 구성 -> 하위 트리 
+
 void tree(map<int,vector<int>> & _adj,map<int,vector<int>> & _child ,const int & current,const int & parent){
     for (auto node : _adj[current]){
         if(node!=parent){
