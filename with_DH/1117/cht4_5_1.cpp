@@ -7,13 +7,23 @@ class string{
         strcpy(name,pp);
         std::cout << name << std::endl;
     }
-    
+    int length(){
+        return sizeof(name)-1;
+    }
+    string & add_string(const char * added){
+        // 공간을 추가로 늘려서 해야할 것 같은데 어떻게 해야할까?
+        
+        return *this ;
+    }  
 };
 
 
 
 int main(){
-    string("abs");
+    string a("abs");
+    std::cout << sizeof(char)<<std::endl;
+    std::cout << sizeof("abs")<<std::endl;
+    std::cout << a.length()<<std::endl;
     return 0;
 }
 
