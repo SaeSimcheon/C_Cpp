@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+#include <algorithm>
 using namespace std;
 
 // 조합을 구할 것인데
@@ -8,14 +8,14 @@ using namespace std;
 // dfs
 
 void dfs(const vector<int> & _vec,int & ans,int  added,const int & criteria,const int & start,const int & size){
-    if (added ==criteria){
+    if (start==size && added ==criteria){
         ans +=1;
     }
     else{
         for (int i = start ; i < size; i++){
-            added += _vec[i] ;
-            dfs(_vec,ans,added,criteria,start+1,size);
-            added -= _vec[i] ;
+            
+            dfs(_vec,ans,added+_vec[i],criteria,i+1,size);
+            
         }
     }
 }
@@ -28,12 +28,14 @@ int main(){
     int answer =0;
     int N, S;
     cin >> N >> S;
+    
     vector<int> vec ; 
     for (int i =0 ; i < N; i++){
         int get ;
         cin >> get;
         vec.push_back(get);
     }
+    sort(vec.begin(),vec.end());
     dfs(vec,answer,0,S,0,N);
     cout << answer ;
 
