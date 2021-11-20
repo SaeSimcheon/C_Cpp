@@ -39,7 +39,7 @@ class mystring{
         }
         
         p =  new char[size];
-        asd
+        
         
         
     }
