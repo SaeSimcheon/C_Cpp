@@ -31,26 +31,34 @@ class mystring{
         */
         /*
          4. for문을 통한 사이즈 찾기
-         for 문을 조건 없이 돌려서 
+         for 문을 조건 없이 돌려서 null 문자인 '\0'을 만나는 시점까지 size올려줌
         */
         for (int i = 0;;i++){
             if (s[i] =='\0') break;
             size++;
         }
-        
         p =  new char[size];
-        
-        
-        
+        /* 5. size만큼 반복문을 수행하여
+        새로 동적으로 할당받은 영역에 입력
+        */
+        for (int i = 0;i < size;i++){
+            p[i] = s[i];
+        }
     }
     
     ~mystring(){// 소멸자는 인자를 받지 않는다
         delete[] p;
     }
+    /* 6. print라는 출력함수 생성
+    */
+    void print(){
+        cout << p << endl;
+    }
 };
 
 
 int main(){
-    mystring ms("hello");
+    mystring ms("delicious");
+    ms.print();
     return 0;
 }
