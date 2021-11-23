@@ -117,6 +117,28 @@ class mystring{
         
         return *this;
     }
+    /* 9. find : 문자열 검색
+    > 문자열 첫 지점이 찾아지는 index 부터 substr의 길이만큼 탐색
+    > 탐색해야하는 길이가 남은 길이보다 작으면 
+    > 만약 다른 지점이 발생하면 false
+    > 다른 지점을 찾지 못하고 종료되면 true
+    */
+    bool find(const char * substr){
+        int substr_len = strlen(substr);
+        for (int i =0 ; i < size ; i++){
+            if (substr[0] == p[i]){
+                if (size-i < substr_len){
+                    return false;
+                }else{
+                    for (int j = i+1 ; j < substr_len ; j++){
+                        if (substr[j]!=p[j]){
+                            return false;}
+                    return true ;}
+                }
+            }
+        }
+        return false;
+    }
 };
 
 
@@ -127,6 +149,7 @@ int main(){
     ms.print();
     ms.addstring("adsfasdfasdfasdfas");
     ms.print();
+    cout << ms.find("ous") << endl;
 
     return 0;
 }
