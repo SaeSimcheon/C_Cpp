@@ -76,6 +76,19 @@ class mystring{
     -> p_c. 필요한 메모리 크기가 현재까지 보유하고 있던 크기보다 크다면, 새로 할당 받아야하는데 그를 위해서는 임시로 포인터 하나를 새로 만들어 내용을 보관하고 사용한다.
     */
     
+    
+    /* 8. 리턴형에 대한 궁금증 mystring & return 이 &가 빠지면 오류가 남
+    mystring & tmp = *this;
+    mystring  tmp = *this;
+    내부 멤버 변수에 실제로 무엇인가 반영이 되었더단가 한 경우에는
+    그래야하는듯 -> 그런데 왜지?
+    void return 형인 경우 또 가능함
+    
+    mystring ~ return *this 인 경우는 안 돼
+    mystring& ~ return *this 이건 됨
+    
+    */
+    
     mystring & addstring(const char * _added){
         int added_len = strlen(_added);
         
