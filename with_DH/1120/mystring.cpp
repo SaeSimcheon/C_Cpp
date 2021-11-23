@@ -84,7 +84,9 @@ class mystring{
             }
             size = size+added_len;
         }else{
-            mystring tmp = *this;// 임시로 객체 저장
+            
+            
+            char * tmp =new char[size_mem];
             
             delete[] p; // p 에 할당된 메모리 해제
             size_mem = 2*(size+added_len); // 새로 할당받기 위한 메모리 사이즈는 이와 같음
@@ -107,5 +109,27 @@ class mystring{
 int main(){
     mystring ms("delicious");
     ms.print();
+    // addstring str 만들기 위한 메모리 할당 연습
+    // 결론 만약 동적으로 할당된 공간을 가리키는 포인터가 2개일 때,
+    // 둘 중하나를 통해 접근해 메모리를 해제하면 다른 한 쪽도 해제된 공간에 접근하게 됨.
+    const char * str = "del";
+    cout << str << endl;
+    
+    char * pp = new char[5];
+    pp[0] = 'a';
+    pp[1] = 'b';
+    pp[2] = 'c';
+    
+    cout << "pp "<< pp <<endl;
+    
+    char *ppp = pp;
+    cout << "ppp "<< ppp <<endl;
+    
+    delete [] pp; //
+    
+    cout << "pp "<< pp <<endl;
+    cout << "ppp "<< ppp <<endl;
+    delete [] ppp;
+    
     return 0;
 }
