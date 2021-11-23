@@ -109,27 +109,33 @@ class mystring{
 int main(){
     mystring ms("delicious");
     ms.print();
-    // addstring str 만들기 위한 메모리 할당 연습
-    // 결론 만약 동적으로 할당된 공간을 가리키는 포인터가 2개일 때,
-    // 둘 중하나를 통해 접근해 메모리를 해제하면 다른 한 쪽도 해제된 공간에 접근하게 됨.
-    const char * str = "del";
-    cout << str << endl;
+
     
-    char * pp = new char[5];
-    pp[0] = 'a';
-    pp[1] = 'b';
-    pp[2] = 'c';
+    char * a ;
+    char * b ;
+    // 7. addstring에서 임시로 동적메모리를 보관하고 싶은데 방법이 있을까?
+    // 다음 시도는 pointer 2개를 만들어서 한 쪽에(a에) 동적으로 할당 받은 것을 다른 포인터가 가리키게 하고
+    // 해제 하지 않고, a에 새로 할당하는 방법
+    // 됨 . 따라서 임시포인터 만들어서 가리키게 한 다음 사용하는 방법도 유효하다고 생각한다.
+    a = new char[10];
+    a[0]='a';
+    a[1]='b';
+    a[2]='b';
+    cout << "a " << a << endl;
+    cout << "b " << b << endl;
+    b = a;
+    cout << "a " << a << endl;
+    cout << "b " << b << endl;
+    a = new char[20];
     
-    cout << "pp "<< pp <<endl;
+    a[0]='c';
+    a[1]='c';
+    a[2]='c';
+    a[3]='c';
+    cout << "a " << a << endl;
+    cout << "b " << b << endl;
     
-    char *ppp = pp;
-    cout << "ppp "<< ppp <<endl;
-    
-    delete [] pp; //
-    
-    cout << "pp "<< pp <<endl;
-    cout << "ppp "<< ppp <<endl;
-    delete [] ppp;
-    
+    delete[]a;
+    delete[]b;
     return 0;
 }
