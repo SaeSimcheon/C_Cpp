@@ -73,6 +73,7 @@ class mystring{
     /* 7. 뒤에 문자열을 추가하는 함수 addstring 
     -> p_a. 있는 것 뒤에 새로 메모리를 할당 받아야한다? -> 이런 방식 말고, 애초에 메모리 변화가 있을때마다 현재의 2배를 할당해두고 사용
     -> p_b. 할당 받은 메모리 크기를 미리 저장해두자. -> size_mem이라는 변수 따로 만들어두기로 함 
+    -> p_c. 필요한 메모리 크기가 현재까지 보유하고 있던 크기보다 크다면, 새로 할당 받아야하는데 그를 위해서는 임시로 포인터 하나를 새로 만들어 내용을 보관하고 사용한다.
     */
     
     mystring & addstring(const char * _added){
@@ -84,20 +85,20 @@ class mystring{
             }
             size = size+added_len;
         }else{
+            //7_p_c 필요한 메모리 크기가 현재까지 보유하고 있던 크기보다 크다면, 새로 할당 받아야하는데 그를 위해서는 임시로 포인터 하나를 새로 만들어 내용을 보관하고 사용한다.
+            char * tmp =p;
             
-            
-            char * tmp =new char[size_mem];
-            
-            delete[] p; // p 에 할당된 메모리 해제
             size_mem = 2*(size+added_len); // 새로 할당받기 위한 메모리 사이즈는 이와 같음
             p = new char[size_mem]; // p에 새로 할당 받음
             
+            for (int i =0 ; i < size; i ++){
+                p[i] = tmp[i];
+            }
             for (int i =0 ; i < added_len; i ++){
                 p[size+i] = _added[i];
             }
-            
-            
-            
+            delete[] tmp;
+            size = size+added_len;
         }
         
         
@@ -109,33 +110,10 @@ class mystring{
 int main(){
     mystring ms("delicious");
     ms.print();
+    ms.addstring("adsfasdfasdfasdfas");
+    ms.print();
+    ms.addstring("adsfasdfasdfasdfas");
+    ms.print();
 
-    
-    char * a ;
-    char * b ;
-    // 7. addstring에서 임시로 동적메모리를 보관하고 싶은데 방법이 있을까?
-    // 다음 시도는 pointer 2개를 만들어서 한 쪽에(a에) 동적으로 할당 받은 것을 다른 포인터가 가리키게 하고
-    // 해제 하지 않고, a에 새로 할당하는 방법
-    // 됨 . 따라서 임시포인터 만들어서 가리키게 한 다음 사용하는 방법도 유효하다고 생각한다.
-    a = new char[10];
-    a[0]='a';
-    a[1]='b';
-    a[2]='b';
-    cout << "a " << a << endl;
-    cout << "b " << b << endl;
-    b = a;
-    cout << "a " << a << endl;
-    cout << "b " << b << endl;
-    a = new char[20];
-    
-    a[0]='c';
-    a[1]='c';
-    a[2]='c';
-    a[3]='c';
-    cout << "a " << a << endl;
-    cout << "b " << b << endl;
-    
-    delete[]a;
-    delete[]b;
     return 0;
 }
