@@ -90,7 +90,7 @@ class mystring{
     */
     
     mystring & addstring(const char * _added){
-        int added_len = strlen(_added);
+        int added_len = strlen(_added) ;
         
         if (size_mem > size + added_len){    
             for (int i =0 ; i < added_len; i ++){
@@ -133,7 +133,8 @@ class mystring{
                     for (int j = i+1 ; j < substr_len ; j++){
                         if (substr[j]!=p[j]){
                             return false;}
-                    return true ;}
+                    }
+                    return true ;
                 }
             }
         }
@@ -151,5 +152,7 @@ int main(){
     ms.print();
     cout << ms.find("ous") << endl;
 
+
+    
     return 0;
 }
