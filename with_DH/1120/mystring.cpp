@@ -158,7 +158,22 @@ class mystring{
     
     /* 11. 문자열 크기 비교
     */
-    bool 
+    bool compare(const char * str){
+        int iter = 0;
+        if (strlen(str) > size) iter = size;
+        else iter = strlen(str);
+        
+        for (int i = 0 ; i < iter ; i ++){
+            if (p[i]!=str[i])
+                return p[i] < str[i];
+        
+        if (strlen(str) >=size) 
+            return false ;
+        else 
+            return true ;
+        }
+        return true;
+    }
 };
 
 
@@ -171,6 +186,7 @@ int main(){
     ms.addstring("adsfasdfasdfasdfas");
     ms.print();
     cout << ms.find("ous") << endl;
+    cout << ms.compare("zzz") << endl;
     
 
 
