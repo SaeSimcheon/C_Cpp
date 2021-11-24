@@ -140,17 +140,35 @@ class mystring{
         }
         return false;
     }
+    /* 10. 문자열이 같은지 확인하는 함수 compare
+    > 먼저 길이 기준으로 확인하고 길이가 다르면 return false
+    > 길이가 같으면 끝까지 같은지 확인하고 만약 종료까지 다른 부분이 존재한다면 return false
+    > 앞의 절차를 거쳐 마지막까지 진행된다면  return true
+    
+    */
+    bool compare(const char * str){
+        if (size !=strlen(str))
+            return false;
+        for (int i =0; i < size ; i++){
+            if (p[i]!=str[i])
+                return false;
+                
+        }
+        return true;
+    }
 };
 
 
 int main(){
     mystring ms("delicious");
+    cout << ms.compare("delicious") << endl;
     ms.print();
     ms.addstring("adsfasdfasdfasdfas");
     ms.print();
     ms.addstring("adsfasdfasdfasdfas");
     ms.print();
     cout << ms.find("ous") << endl;
+    
 
 
     
