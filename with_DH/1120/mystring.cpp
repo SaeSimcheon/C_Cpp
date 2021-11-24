@@ -65,7 +65,7 @@ class mystring{
     }
     /* 6. print라는 출력함수 생성
     */
-    void print(){
+    void print() const {
         cout << p << endl;
     }
     
