@@ -21,6 +21,16 @@
 
  - 나는 뒤에 문자열을 그냥 추가하는 함수를 만들었는데
  교재는 넣고 싶은 위치의 index까지 받는 함수를 만들었네
+
+ - erase function 추가
+
+ - find 함수에서 mystring 및 문자열 리터럴을 한 함수에서 해결할 수 있도록
+ mystring을 인자로 받는 함수를 만들고 그 함수를 내부에서 호출하는 
+ 문자열 리터럴을 인자로 받는 함수를 오버로딩함.
+-> 1129일 기준으로 세그먼테이션 오류가 일어남
+
+
+- same compare 비슷한 기능을 가진 함수 굳이 필요 없어보임
 */
 
 
@@ -132,16 +142,20 @@ class mystring{
         return * this;
     }
 
-    
-    bool find(const char * substr){
-        int substr_len = strlen(substr);
+    bool find(const char * str){
+        mystring tmp(str);
+        return find(str);
+    }
+    // 이거 세그먼테이션 오류가 일어남
+    bool find(mystring & substr){
+        int substr_len = substr.size;
         for (int i =0 ; i < size ; i++){
-            if (substr[0] == p[i]){
+            if (substr.p[0] == p[i]){
                 if (size-i < substr_len){
                     return false;
                 }else{
                     for (int j = i+1 ; j < substr_len ; j++){
-                        if (substr[j]!=p[j]){
+                        if (substr.p[j]!=p[j]){
                             return false;}
                     }
                     return true ;
@@ -150,6 +164,20 @@ class mystring{
         }
         return false;
     }
+
+    mystring & erase(int loc , int num){
+
+        if (num < 0 || loc < 0 || loc > size) return *this ;
+
+        for (int i =loc + num ; i < size ; i ++){
+            p[i - num] = p[i];
+        }
+
+        size -= num;
+        return *this;
+    }
+
+
     bool same(const char * str){
         if (size !=strlen(str))
             return false;
@@ -190,7 +218,8 @@ int main(){
     //mystring mms(ms);
     cout << ms.find("ous") << endl;
     cout << ms.compare("zzz") << endl;
-    
+    ms.erase(0,3);
+    ms.print();
 
 
     
