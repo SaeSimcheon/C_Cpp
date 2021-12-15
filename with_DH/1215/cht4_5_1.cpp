@@ -12,6 +12,14 @@
 문자열이 같은지 비교
 
 문자열 크기 비교 (사전 순)
+
+새로운 문자열 할당하기
+
+문자열 위치에 삽입하기
+
+문자열 지우기
+
+문자열 비교하기
 */
 
 
@@ -104,9 +112,45 @@ class String{
         //delete[] a ;
     }
 
+    void insert(int loc ,const char inserted){
+        String tmp = String(inserted);
+        insert(loc,tmp);
+    }
+    void insert(int loc ,const char * inserted){
+        String tmp = String(inserted);
+        insert(loc,tmp);
+    }
+    void insert(int loc ,const String & inserted){
+        // insert도 마찬가지로 임시 저장소에 현재 가지고 있는 문자열을 저장해두고 새로 메모리를 할당 받아 사용하자.
+        if (loc > length || loc < 0) {
+            cout << " Wrong input loc !! " << endl;
+            return ;}
+        String tmp = String(this->a);
+        
+        
+        length = tmp.length + inserted.length ;
+        mem = length +1;
+        delete[] a ;
+        a = new char[mem];
+
+        for (int i =0 ; i < loc ; i ++){
+            a[i] = tmp.a[i];
+        }
+
+        for (int i =0 ; i < inserted.length ; i ++){
+            a[loc+i] = inserted.a[i];
+        }
+
+        int remain = length - loc - inserted.length;
+        for (int i =0 ; i < remain ; i ++){
+            a[loc + inserted.length +i] = tmp.a[loc + i];
+        }
+        //delete[] a ;
+    }
+
+
     ~String(){
         delete[] a;
-        cout << a << endl;
     }
 
     
@@ -125,6 +169,8 @@ int main(){
     str2.print();
     str3.print();
     str1.append(str3);
+    str1.print();
+    str1.insert(100,str3);
     str1.print();
 
     return 0 ;
