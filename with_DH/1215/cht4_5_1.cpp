@@ -73,7 +73,11 @@ class String{
         }
     }
     void print(){
-        cout << a << endl;
+
+        for ( int i =0 ; i < length ; i ++)
+            cout << a[i];
+        cout << endl;
+        
         cout << length << endl;
         cout << mem << endl;
     }
@@ -165,7 +169,32 @@ class String{
         }
         return true;
     }
+    void assign(const char assigned){
+        String tmp(assigned);
+        assign(assigned);
+    }
 
+    void assign(const char * assigned){
+        String tmp(assigned);
+        assign(assigned);
+    }
+
+    void assign(const String & assigned){
+        if (mem >= assigned.mem){
+            for (int i = 0 ; i < assigned.length ; i ++)
+                a[i] = assigned.a[i];
+            length = assigned.length;
+        }else{
+            delete[] a;
+            length = assigned.length;
+            mem = length +1; // 메모리 이렇게 저장할 필요 없음
+            a = new char[mem]; 
+
+            for (int i = 0 ; i < length ; i ++){
+                a[i] = assigned.a[i];
+            }
+        }
+    }
 
     ~String(){
         delete[] a;
@@ -192,6 +221,8 @@ int main(){
     str1.print();
     cout << str1.find(3,"c") << endl;
     cout << str1.find(3,"s") << endl;
+    str1.assign(str3);
+    str1.print();
     
 
     return 0 ;
@@ -208,3 +239,5 @@ int main(){
 // The difference is that const char * is a pointer to a const char(엄연히 따지면 const char로 취급하는거지 const char은 아닐 수도 있는거 아닌가 ?), while char * const is a constant pointer to a char.
 //     char a = 'a';
 //    const char * aa = &a; 이 코드가 가능하고 aa로는 a의 내용을 바꿀 수 없지만 a는 바꿀 수 있음.
+
+// 
