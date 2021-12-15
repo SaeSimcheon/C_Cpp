@@ -9,10 +9,6 @@
 
 문자열 내에 포함되어 있는 문자열 구하기
 
-문자열이 같은지 비교
-
-문자열 크기 비교 (사전 순)
-
 새로운 문자열 할당하기
 
 문자열 위치에 삽입하기
@@ -147,6 +143,28 @@ class String{
         }
         //delete[] a ;
     }
+    // 문자열 탐색 find 함수
+
+    bool find(int loc , const char obj){
+        String tmp = String(obj);
+        return find(loc, tmp);
+    }
+
+    bool find(int loc , const char * obj){
+        String tmp = String(obj);
+        return find(loc, tmp);
+    }
+
+    bool find(int loc , const String & obj){
+        if ( length-obj.length < loc || loc < 0 ) {
+            return false;
+        }
+        for (int i = 0 ; i < obj.length ; i ++){
+            if (a[i+loc] == obj.a[i]) continue ;
+            else return false;
+        }
+        return true;
+    }
 
 
     ~String(){
@@ -172,6 +190,9 @@ int main(){
     str1.print();
     str1.insert(100,str3);
     str1.print();
+    cout << str1.find(3,"c") << endl;
+    cout << str1.find(3,"s") << endl;
+    
 
     return 0 ;
 }
