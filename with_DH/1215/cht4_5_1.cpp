@@ -59,8 +59,15 @@ class String{
             a[i] = _a[i];
         }
     }
-    
 
+    String(const String & _a){
+        length = _a.length;
+        mem = _a.mem;
+        a= new char[mem];
+        for (int i=0 ; i < length ; i++){
+            a[i] = _a.a[i];
+        }
+    }
 
     void print(){
         cout << a << endl;
@@ -84,8 +91,10 @@ int main(){
     
     String str1('a');
     String str2("abs");
+    String str3(str2);
     str1.print();
     str2.print();
+    str3.print();
 
     return 0 ;
 }
@@ -99,3 +108,5 @@ int main(){
 // const char * 이렇게 된 경우에 이 포인터 변수로 접근해서 바꾸지 못한다.
 // const * char 이렇게 된 경우에 이 포인터 변수의 내용을 바꾸지 못한다. (https://stackoverflow.com/questions/890535/what-is-the-difference-between-char-const-and-const-char) 참고
 // The difference is that const char * is a pointer to a const char(엄연히 따지면 const char로 취급하는거지 const char은 아닐 수도 있는거 아닌가 ?), while char * const is a constant pointer to a char.
+//     char a = 'a';
+//    const char * aa = &a; 이 코드가 가능하고 aa로는 a의 내용을 바꿀 수 없지만 a는 바꿀 수 있음.
