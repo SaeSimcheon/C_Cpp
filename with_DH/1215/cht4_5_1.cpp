@@ -18,7 +18,7 @@
 문자열 비교하기
 */
 
-
+// 생성자 안에서 쓸 함수 미리 정의해서 사용할 수 있음.
 #include <iostream>
 
 // 문자열을 관리하는 class
@@ -196,6 +196,40 @@ class String{
         }
     }
 
+    bool cmp(const char obj){
+        String tmp(obj);
+        return cmp(tmp);
+    }
+
+    bool cmp(const char * obj){
+        String tmp(obj);
+        return cmp(tmp);
+    }
+
+    bool cmp(const String & obj){
+        int cmp_len ;
+        if (length >= obj.length) cmp_len = obj.length;
+        else cmp_len = length;
+
+        for (int i =0 ; i < cmp_len ; i ++){
+                if (a[i] == obj.a[i]) 
+                    continue;
+                else return a[i] > obj.a[i];
+            }
+
+        return length < obj.length ;
+    }
+
+    void erase(int loc ){
+        if (loc > length || loc < 0) {
+            cout << " Wrong input loc !! " << endl;
+            return ;}
+        
+        length = loc;
+        mem = length +1;
+        a[loc] = '\0';
+    }
+
     ~String(){
         delete[] a;
     }
@@ -224,6 +258,9 @@ int main(){
     str1.assign(str3);
     str1.print();
     
+
+    str1.erase(2);
+    str1.print();
 
     return 0 ;
 }
