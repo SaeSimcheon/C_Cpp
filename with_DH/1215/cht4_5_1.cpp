@@ -24,7 +24,7 @@
 using namespace std;
 class String{
 
-    const char * a;
+    char * a;
 
     int length;
     int mem ;
@@ -42,30 +42,50 @@ class String{
                 break;
         }
         return size;
-
     }
-    String(const char _a)
-    :a(_a),length(1),mem(1)
-    {}
+    String(const char _a){
+        length = 1;
+        mem = length+1;
+        a= new char[mem];
+        a[0] = _a;
+    }
 
-    String(const char & _a){
-
+    String(const char * _a){
         //a = _a;// 이대로면 새로 문자열을 할당하거나 뒤에 문자열을 붙이는 등의 작업을 할때 문제가 있을 것 같음. _a는 리터럴 문자열을 가리키고 a로 같은 곳을 가리킨다는 의미가 되기 때문
-        //length = get_size(a);
-        //cout << a << endl;
-        cout << _a << endl;
+        length = get_size(_a);
+        mem = length+1;
+        a= new char[mem];
+        for (int i=0 ; i < length ; i++){
+            a[i] = _a[i];
+        }
     }
+    
+
+
+    void print(){
+        cout << a << endl;
+        cout << length << endl;
+        cout << mem << endl;
+    }
+
+    ~String(){
+        delete[] a;
+        cout << a << endl;
+    }
+
+    
 };
 
 
 int main(){
-    char ss[3] = {'a','b','\0'};
-    int ints[3] = {1,2,3};
-    // 문자 배열
-    // 
-    //char * & sss = ss; 이런 표현 불가능
+    
+    char a = 'a';
+    const char * aa = &a;
+    
     String str1('a');
-    //String str2(ss);
+    String str2("abs");
+    str1.print();
+    str2.print();
 
     return 0 ;
 }
@@ -73,3 +93,9 @@ int main(){
 // 인자로 문자배열을 받을때 char * a <- char a[] , char a[10] 같게됨
 // 문자배열을 받을때 const char * a 나 char *a나 변화만 시키지 않는다면 
 // 문자열 리터럴을 인자로 받을때 const char * a 이렇게 받아야함.(문자열 리터럴의 주소를 저장) const char & (주소의 별명은 불가) 이건 가능한가? 이건 불가능함.
+
+
+
+// const char * 이렇게 된 경우에 이 포인터 변수로 접근해서 바꾸지 못한다.
+// const * char 이렇게 된 경우에 이 포인터 변수의 내용을 바꾸지 못한다. (https://stackoverflow.com/questions/890535/what-is-the-difference-between-char-const-and-const-char) 참고
+// The difference is that const char * is a pointer to a const char(엄연히 따지면 const char로 취급하는거지 const char은 아닐 수도 있는거 아닌가 ?), while char * const is a constant pointer to a char.
