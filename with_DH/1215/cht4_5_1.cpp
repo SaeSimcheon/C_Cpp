@@ -1,7 +1,7 @@
 /*
 구현 해보기 
 
-문자(char) 로 부터의 문자열 생성, C 문자열 (char *) 로 부터의 생성
+문자(char) 로 부터의 문자열 생성, C 문자열 (char *) 로 부터의 생성 
 
 문자열 길이를 구하는 함수
 
@@ -59,7 +59,7 @@ class String{
             a[i] = _a[i];
         }
     }
-
+    // 같은 클래스 안에서 private 인스턴스 변수 접근 가능한가?
     String(const String & _a){
         length = _a.length;
         mem = _a.mem;
@@ -68,11 +68,40 @@ class String{
             a[i] = _a.a[i];
         }
     }
-
     void print(){
         cout << a << endl;
         cout << length << endl;
         cout << mem << endl;
+    }
+    // 모든 인자 케이스에 대해서 overloading 하게 짜는 것보다 instance를 생성해서 주는 것이 더 깔끔하다.
+    // 뒤에 문자를 추가.
+    void append(const char added){
+        String tmp = String(added);
+        append(tmp);
+    }
+    void append(const char * added){
+        String tmp = String(added);
+        append(tmp);
+    }
+    void append(const String & added){
+        // 임시 저장소에 현재 가지고 있는 문자열을 저장해두고 새로 메모리를 할당 받아 사용하자.
+        String tmp = String(this->a);
+        
+        
+        length = tmp.length + added.length ;
+        mem = length +1;
+        delete[] a ;
+        a = new char[mem];
+
+        for (int i =0 ; i < tmp.length ; i ++){
+            a[i] = tmp.a[i];
+        }
+
+        for (int i =0 ; i < added.length ; i ++){
+            a[tmp.length+i] = added.a[i];
+        }
+
+        //delete[] a ;
     }
 
     ~String(){
@@ -95,6 +124,8 @@ int main(){
     str1.print();
     str2.print();
     str3.print();
+    str1.append(str3);
+    str1.print();
 
     return 0 ;
 }
