@@ -14,7 +14,7 @@
 // a = a + "-1.1 + i3.923"; -> a = a.operator+("-1.1 + i3.923"); -> a = a.operator+(Complex("-1.1 + i3.923")); 이렇게 됨.
 // 
 
-
+// 이거 다시 도전할 것.
 
 #include<iostream>
 
@@ -33,7 +33,7 @@ class complex {
     complex operator*(const complex& c) const ;
     complex operator/(const complex& c) const ;
     complex& operator=(const complex & c);
-
+    double get_num(const char * str,int from, int to) const;
     complex& operator+=(const complex&c);
     complex& operator-=(const complex&c);
     complex& operator*=(const complex&c);
@@ -42,30 +42,20 @@ class complex {
     void print(){cout <<"real : "<< real <<" img : " << img <<endl;}
 };
 
+double complex::get_num(const char * str,int from, int to) const {
+    bool minus = false;
 
-complex::complex(const char * c){
-    int size = 0;
-    int indicator = -1;
-    for (;;){
-        if(c[size]=='\0')
-            break;
-        size++;
-    }
+    if(from > to) return 0;
 
-    for (int i =0 ; i < size ; i ++){
-        if(c[i]=='+'){
-            indicator = i;
-            break;
-        }
-    }
-    if(indicator != -1){
-        char * ch1 ;
-        char * ch2 ;
-        
-        real = stod();
-        img = stod(c[indicator+1]);
-    }
+    if (str[from] == '-') minus = true;
+    if (str[from] == '-' ||str[from]=='+') from ++;
+
+
 }
+
+
+
+
 
 
 complex complex::operator+(const complex & c) const {
