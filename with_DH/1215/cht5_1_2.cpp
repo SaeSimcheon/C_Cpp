@@ -1,12 +1,21 @@
-// 사용자 정의 연산자 사용 가능.
-//:: . .*를 제외하고 가능.
-//연산자 오버로딩.
-// (리털 타입) operator(연산자) (연산자가 받는 인자)
+// 문자열을 complex 수와 덧셈 해보자.
+// 개별 연산자마다 정의하는 방법도 있지만, 생성자를 만드는 쪽이 훨씬 편하다.
+// 13:47 문자열을 받는 생성자 만들기
 
-// bool operator==(mystring& str)
+// 원래 논리는 complex + "any string" -> 이렇게 연산을 시도 했을때 
+// 오버로딩된 연산자 + 에 의해서 const char *을 인자로 받는 함수가 적용되어 내부에서 const char * -> complex로 변환한 후에 연산이 이루어짐.
+// 하지만, const char *을 받는 함수가 없어도 생성자만 정의해도 연산이 됨.
 
-// str1 == str2 라는 명령을 한다면 str1.operator==(str2)로 내부적으로 변환돼서 처리 됨.
-//
+
+// 생성자에 의한 암시적인 형변환이 이루어질 수 있다는 점을 염두하고 짤 수 있음.
+
+
+
+// a = a + "-1.1 + i3.923"; -> a = a.operator+("-1.1 + i3.923"); -> a = a.operator+(Complex("-1.1 + i3.923")); 이렇게 됨.
+// 
+
+
+
 #include<iostream>
 
 
@@ -16,6 +25,7 @@ class complex {
     
     public: 
     complex(double real,double img):real(real),img(img){}
+    complex(const char * c);
     complex(const complex& c){real = c.real,img = c.img;}
     
     complex operator+(const complex& c) const ;
@@ -31,6 +41,32 @@ class complex {
 
     void print(){cout <<"real : "<< real <<" img : " << img <<endl;}
 };
+
+
+complex::complex(const char * c){
+    int size = 0;
+    int indicator = -1;
+    for (;;){
+        if(c[size]=='\0')
+            break;
+        size++;
+    }
+
+    for (int i =0 ; i < size ; i ++){
+        if(c[i]=='+'){
+            indicator = i;
+            break;
+        }
+    }
+    if(indicator != -1){
+        char * ch1 ;
+        char * ch2 ;
+        
+        real = stod();
+        img = stod(c[indicator+1]);
+    }
+}
+
 
 complex complex::operator+(const complex & c) const {
     complex temp(real + c.real, img + c.img);
@@ -56,7 +92,7 @@ complex complex::operator/(const complex &c ) const {
     return temp;
 }
 
-// 아래 연산자들도 개별적으로 정의 해주어야함.
+
 
 complex& complex::operator+=(const complex& c){
     *this = *this+c;
@@ -76,50 +112,13 @@ complex& complex::operator/=(const complex& c){
 }
 
 
-
-
-
-// & 참조자리턴이 아니라 *this로 반환하는 것이 중요 하기 자신으로 반환해야
-
-/*
-
-void complex::operator=(const complex & c){
-    real = c.real ;
-    img = c.img ;
-    //return *this;
-}
-
-b=a;
-연산자에 의해 b의 내용 자체는 그냥 바뀌는 것이기 대문에 저렇게 정의해도 상관 없음 다만,
-
-complex c =b=a;
-
-cht5_1_1.cpp: In function 'int main()':
-cht5_1_1.cpp:89:17: error: conversion from 'void' to non-scalar type 'complex' requested
-   89 |     complex c =b=a;
-      |                ~^~
-
-      이런 경우에 저 자리에 리턴 타입이 없으므로 오류가 남.
-
-*/
-
-
-
 complex& complex::operator=(const complex & c){
     real = c.real ;
     img = c.img ;
     return *this;
 }
 
-
-
-// complex &가 아니라 complex를 리턴 타입으로 갖는 이유?
-// Complex a = b + c + b; 이런 식에서 
-// 뒤의 b에 순서대로 연산한 b+c에 의해 b+c 의 결과가 반영되기 때문
-// 참조자 리턴 -> 임시저장소에 복사 없음.
-
-// operator=를 만들지 않아도 작동하는데 그 이유는 컴파일러 차원에서 디폴트 대입연산자를 지원하고 있기 때문 다만, 얕은 복사를 수행하기 때문에 깊은 복사는 따로 만들어 주어야함.
-
+// char ch2[]; 문자열 배열은 size 정해줘야함. 사이즈 정해주지 않으면 얼마만큼 확보를 해둬야 할지 모르니까 안 되는듯
 
 
 int main(){
@@ -130,9 +129,7 @@ int main(){
     complex c =b=a;
     b.print();
     c.print();
-
-    
-    
+     
 
     
     return 0; 
